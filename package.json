@@ -1,0 +1,46 @@
+{
+    "name": "px2rem",
+    "description": "根据一份css样式，生成3份尺寸样式和rem样式",
+    "version": "0.1.0",
+    "homepage": "http://gitlab.alibaba-inc.com/one-request/px2rem",
+    "author": {
+        "name": "颂奇",
+        "email": "siqi.song@alibaba-inc.com"
+    },
+    "contributors": [
+        {
+            "name": "岑安",
+            "email": "cenan.chr@alibaba-inc.com"
+        }
+    ],
+    "repository": {
+        "type": "git",
+        "url": "git@gitlab.alibaba-inc.com:one-request/px2rem.git"
+    },
+    "engines": {
+        "node": ">= 0.10.0"
+    },
+    "devDependencies": {
+        "css": "~2.2.0",
+        "glob": "~5.0.3",
+        "extend": "~2.0.0",
+        "underscore": "~1.8.2"
+    },
+    "directories": {
+        "test": "test"
+    },
+    "bin": {
+        "px2rem": "./bin/px2rem.js"
+    },
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "main": "index.js",
+    "keywords": [
+        "3x",
+        "rem",
+        "px2rem"
+    ],
+    "readmeFilename": "README.md",
+    "license": "MIT"
+}
