@@ -1,8 +1,41 @@
 # px2rem
 
-根据一份css样式，生成3份尺寸样式和rem样式
+根据一份css样式，生成1x、2x、3x样式和rem样式。
+
+有：
+
+* 独立命令行工具
+* gulp插件（待完善）
+
+供选择使用。
 
 ## 使用
+
+### 安装运行
+
+```
+$ npm install -g px2rem
+```
+```
+$ px2rem -r 64 -o build src/*.css  # 把src/目录下的所有css文件以1rem为64px为基准进行单位转换，输出到build目录下
+```
+
+```
+  Usage: px2rem [options] <file...>
+
+  Options:
+
+    -h, --help                      output usage information
+    -V, --version                   output the version number
+    -u, --remUnit [value]           set `rem` unit value (default: 64)
+    -x, --threeVersion [value]      whether to generate 3x version (default: true)
+    -r, --remVersion [value]        whether to generate rem version (default: true)
+    -b, --baseDpr [value]           set base device pixel ratio (default: 2)
+    -p, --remPrecision [value]      set rem precision (default: 2)
+    -f, --forcePxComment [value]    set force px comment (default: `px`)
+    -p, --keepComment [value]       set not change value comment (default: `no`)
+    -o, --output [path]             the output file dirname
+```
 
 ### 基本使用
 
@@ -113,4 +146,3 @@ rem版本：
 后期优化：
 
 * 支持Media Query和Animation的keyframes
-* 命令行版本 + gulp插件
