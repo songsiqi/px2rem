@@ -1,90 +1,59 @@
-var fs = require('fs');
-var path = require('path');
 var css = require('css'); // https://www.npmjs.com/package/css
-var glob = require('glob');
 var extend = require('extend');
 var _ = require('underscore');
 
-var config = {
+
+var defaultConfig = {
     baseDpr: 2,             // 基准devicePixelRatio，默认为2
-    threeVersion: true,     // 是否生成1x、2x、3x版本，默认为true
-    remVersion: true,       // 是否生成rem版本，默认为true
     remUnit: 64,            // rem基准像素，默认为64
     remPrecision: 6,        // rem计算精度，默认为6，即保留小数点后6位
     forcePxComment: 'px',   // 不转换为rem的注释，默认为"px"
-    keepComment: 'no',      // 不参与转换的注释，默认为"no"，如1px的边框
-    deleteOriginFile: true  // 是否删除原css文件，默认删除
+    keepComment: 'no'       // 不参与转换的注释，默认为"no"，如1px的边框
 };
 
-// 整个处理过程
-function process(filepath, options) {
-    extend(config, options);
-    glob(filepath, function(err, files) {
-        if (err) {
-            throw err;
-        }
-        files.forEach(function(filepath, i) {
-            if (path.extname(filepath) !== '.css') {
-                return;
-            }
-            var cssText = fs.readFileSync(filepath, {encoding: 'utf8'});
-            var tmpFilepath = filepath + '.tmp';
-            fs.renameSync(filepath, tmpFilepath); // 重命名原文件，防止被覆盖
-            console.log(filepath);
 
-            // 生成3份版本
-            if (config.threeVersion) {
-                generateThree(filepath, cssText);
-            }
-
-            // 生成rem版本
-            if (config.remVersion) {
-                generateRem(filepath, cssText);
-            }
-
-            // 删除原文件
-            if (config.deleteOriginFile) {
-                fs.unlinkSync(tmpFilepath);
-            }
-        });
-    });
+function Px2rem(options) {
+    var self = this;
+    self.config = {};
+    extend(self.config, defaultConfig, options);
 }
 
 // 生成3份版本
-function generateThree(filepath, cssText) {
-    for (var dpr = 1; dpr <= 3; dpr++) {
-        var astObj = css.parse(cssText);
-        astObj.stylesheet.rules.forEach(function(rule) {
-            if (rule.type !== 'rule') {
-                return;
-            }
-            rule.declarations.forEach(function(declaration, i) {
-                // 需要转换：样式规则声明 && 含有px
-                if (declaration.type === 'declaration' && /px/.test(declaration.value)) {
-                    var nextDeclaration = rule.declarations[i + 1];
-                    if (nextDeclaration && nextDeclaration.type === 'comment') { // 下一条规则是注释
-                        if (nextDeclaration.comment.trim() === config.keepComment) { // 不用转换标记
-                            nextDeclaration.toDelete = true;
-                            return;
-                        }
-                        if (nextDeclaration.comment.trim() === config.forcePxComment) { // 强制使用px
-                            nextDeclaration.toDelete = true;
-                        }
-                    } else { // 普通转换
-                        declaration.value = getCalcValue('px', declaration.value, dpr);
+Px2rem.prototype.generateThree = function(cssText, dpr) {
+    var self = this;
+    var config = self.config;
+    var astObj = css.parse(cssText);
+    astObj.stylesheet.rules.forEach(function(rule) {
+        if (rule.type !== 'rule') {
+            return;
+        }
+        rule.declarations.forEach(function(declaration, i) {
+            // 需要转换：样式规则声明 && 含有px
+            if (declaration.type === 'declaration' && /px/.test(declaration.value)) {
+                var nextDeclaration = rule.declarations[i + 1];
+                if (nextDeclaration && nextDeclaration.type === 'comment') { // 下一条规则是注释
+                    if (nextDeclaration.comment.trim() === config.keepComment) { // 不用转换标记
+                        nextDeclaration.toDelete = true;
+                        return;
                     }
+                    if (nextDeclaration.comment.trim() === config.forcePxComment) { // 强制使用px
+                        nextDeclaration.toDelete = true;
+                    }
+                } else { // 普通转换
+                    declaration.value = self._getCalcValue('px', declaration.value, dpr);
                 }
-            });
+            }
         });
-        deleteNouseRules(astObj);
-        var newCssText = css.stringify(astObj);
-        var newFilepath = filepath.replace(/(.debug)?.css/, dpr + 'x.debug.css');
-        fs.writeFileSync(newFilepath, newCssText, {encoding: 'utf8'});
-    }
-}
+    });
+    self._deleteNouseRules(astObj);
+    var newCssText = css.stringify(astObj);
+    return newCssText;
+};
 
 // 生成rem版本
-function generateRem(filepath, cssText) {
+Px2rem.prototype.generateRem = function(cssText) {
+    var self = this;
+    var config = self.config;
     var astObj = css.parse(cssText);
     var newRulesList = [];
     astObj.stylesheet.rules.forEach(function(rule) {
@@ -113,7 +82,7 @@ function generateRem(filepath, cssText) {
                         for (var dpr = 1; dpr <= 3; dpr++) { // 生成3份
                             var newDeclaration = {};
                             extend(true, newDeclaration, declaration);
-                            newDeclaration.value = getCalcValue('px', newDeclaration.value, dpr);
+                            newDeclaration.value = self._getCalcValue('px', newDeclaration.value, dpr);
                             newRules[dpr - 1].declarations.push(newDeclaration);
                         }
                         declaration.toDelete = true;
@@ -124,7 +93,7 @@ function generateRem(filepath, cssText) {
                         return;
                     }
                 } else { // 普通转换
-                    declaration.value = getCalcValue('rem', declaration.value);
+                    declaration.value = self._getCalcValue('rem', declaration.value);
                 }
             }
         });
@@ -141,15 +110,13 @@ function generateRem(filepath, cssText) {
         astObj.stylesheet.rules.push(rule);
     });
 
-    deleteNouseRules(astObj);
+    self._deleteNouseRules(astObj);
     var newCssText = css.stringify(astObj);
-    // console.log(newCssText);
-    var newFilepath = filepath.replace(/(.debug)?.css/, '.debug.css');
-    fs.writeFileSync(newFilepath, newCssText, {encoding: 'utf8'});
-}
+    return newCssText;
+};
 
 // 删除ast树中需要删除的内容，包括强制使用px的样式规则、标记注释
-function deleteNouseRules(astObj) {
+Px2rem.prototype._deleteNouseRules = function(astObj) {
     astObj.stylesheet.rules.forEach(function(rule) {
         if (rule.type !== 'rule') {
             return;
@@ -166,9 +133,12 @@ function deleteNouseRules(astObj) {
         }
         rule.declarations = _.compact(rule.declarations);
     });
-}
+};
 
-function getCalcValue(type, value, dpr) {
+// 获取px或rem的计算值
+Px2rem.prototype._getCalcValue = function(type, value, dpr) {
+    var self = this;
+    var config = self.config;
     var ret;
     switch (type) {
         case 'px':
@@ -194,12 +164,6 @@ function getCalcValue(type, value, dpr) {
             break;
     }
     return ret;
-}
+};
 
-module.exports = process;
-
-// 使用方法：
-// var options = {
-//     remUnit: 75
-// };
-// process('build/*.css', options);
+module.exports = Px2rem;
