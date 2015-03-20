@@ -1,0 +1,22 @@
+/*整体样式*/
+
+body {
+  background: #eee;
+  color: #888;
+  /* color is gray */
+  border: 1px solid;
+  height: 20px;
+  padding: 6px;
+}
+
+.header,
+.footer span {
+  width: 100%;
+  height: 30px;
+  margin: 15px;
+  font-size: 14px;
+}
+
+.sidebar {
+  width: 60px;
+}
