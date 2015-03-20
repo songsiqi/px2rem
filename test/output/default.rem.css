@@ -1,0 +1,49 @@
+/*整体样式*/
+
+body {
+  background: #eee;
+  color: #888;
+  /* color is gray */
+  border: 1px solid;
+}
+
+.header,
+.footer span {
+  width: 100%;
+  height: 0.3125rem;
+  margin: 0.15625rem;
+}
+
+.sidebar {
+  width: 0.625rem;
+}
+
+[data-dpr="1"] body {
+  height: 10px;
+  padding: 3px;
+}
+
+[data-dpr="2"] body {
+  height: 20px;
+  padding: 6px;
+}
+
+[data-dpr="3"] body {
+  height: 30px;
+  padding: 9px;
+}
+
+[data-dpr="1"] .header,
+[data-dpr="1"] .footer span {
+  font-size: 7px;
+}
+
+[data-dpr="2"] .header,
+[data-dpr="2"] .footer span {
+  font-size: 14px;
+}
+
+[data-dpr="3"] .header,
+[data-dpr="3"] .footer span {
+  font-size: 21px;
+}
