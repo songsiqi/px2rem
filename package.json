@@ -28,6 +28,12 @@
         "chalk": "~0.5.1",
         "fs-extra": "~0.16.3"
     },
+    "devDependencies": {
+        "istanbul": "^0.3.6",
+        "coveralls": "^2.10.0",
+        "mocha": "^2.1.0",
+        "cssmin": "~0.4.3"
+    },
     "directories": {
         "test": "test"
     },
@@ -35,7 +41,8 @@
         "px2rem": "./bin/px2rem.js"
     },
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "test": "mocha",
+        "test-travis": "node node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha --report lcovonly -- --reporter dot"
     },
     "main": "index.js",
     "keywords": [
