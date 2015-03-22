@@ -1,7 +1,7 @@
 {
     "name": "px2rem",
     "description": "根据一份css样式，生成3份尺寸样式和rem样式",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "homepage": "http://gitlab.alibaba-inc.com/one-request/px2rem",
     "author": {
         "name": "颂奇",
