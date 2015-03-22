@@ -1,4 +1,4 @@
-var css = require('css'); // https://www.npmjs.com/package/css
+var css = require('css');
 var extend = require('extend');
 var _ = require('underscore');
 
@@ -20,6 +20,7 @@ function Px2rem(options) {
 
 // 生成3份版本
 Px2rem.prototype.generateThree = function(cssText, dpr) {
+    dpr = dpr || 2;
     var self = this;
     var config = self.config;
     var astObj = css.parse(cssText);
@@ -144,11 +145,6 @@ Px2rem.prototype._getCalcValue = function(type, value, dpr) {
         case 'px':
             ret = value.replace(/(\d+)px/gi, function($0, $1) {
                 var newSize = parseInt($1 * dpr / config.baseDpr);
-                // var oldSize = $1;
-                // var newSize = parseInt($1 * dpr / config.baseDpr);
-                // if (oldSize == 1 && !newSize) { // FIXME: 在没写/*no*/的时候对1px像素处理
-                //     newSize = 1;
-                // }
                 return newSize + 'px';
             });
             break;
