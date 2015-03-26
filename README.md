@@ -1,32 +1,28 @@
 # px2rem
 
-根据一份css样式，生成1x、2x、3x样式和rem样式。
+According to one stylesheet, generate rem version and @1x, @2x and @3x stylesheet.
 
-有：
+This node module contains:
 
-* 独立命令行工具
-* gulp插件（待完善）
+* a CLI tool
+* [gulp plugin](https://www.npmjs.com/package/gulp-px3rem)
 
-供选择使用。
+## Usage
 
-## 使用
+The raw stylesheet only contains @2x style, and if you
 
-在css中只写用2x的尺寸，如果：
+* don't intend to transform the original value, eg: 1px border, add `/*no*/` after the declaration
+* intend to use px by force，eg: font-size, add `/*px*/` after the declaration
 
-* 不想转换，例如1px的边框，在样式规则后面添加注释 `/*no*/`
-* 强制使用px，例如字体大小，在样式规则后面添加注释 `/*px*/`
+**Attention: Dealing with SASS or LESS, only /* */ comment can be used, in order to have the comments persisted**
 
-**注意：相应的sass或less文件中的注释钩子只能使用/* */，这样能在编译后的css文件中保留注释。不能使用//**
-
-**建议直接sass、less输出到build目录下，然后运行脚本**
-
-### 命令行工具
+### CLI tool
 
 ```
 $ npm install -g px2rem
 ```
 ```
-$ px2rem -r 64 -o build src/*.css  # 把src/目录下的所有css文件以1rem为64px为基准进行单位转换，输出到build目录下
+$ px2rem -o build src/*.css
 ```
 
 ```
@@ -37,30 +33,31 @@ $ px2rem -r 64 -o build src/*.css  # 把src/目录下的所有css文件以1rem�
     -h, --help                      output usage information
     -V, --version                   output the version number
     -u, --remUnit [value]           set `rem` unit value (default: 64)
-    -x, --threeVersion [value]      whether to generate 3x version (default: true)
-    -r, --remVersion [value]        whether to generate rem version (default: true)
+    -x, --threeVersion [value]      whether to generate @1x, @2x and @3x version stylesheet (default: true)
+    -r, --remVersion [value]        whether to generate rem version stylesheet (default: true)
     -b, --baseDpr [value]           set base device pixel ratio (default: 2)
-    -p, --remPrecision [value]      set rem precision (default: 2)
+    -p, --remPrecision [value]      set rem value precision (default: 2)
     -f, --forcePxComment [value]    set force px comment (default: `px`)
-    -p, --keepComment [value]       set not change value comment (default: `no`)
+    -p, --keepComment [value]       set no transform value comment (default: `no`)
     -o, --output [path]             the output file dirname
 ```
 
-### 模块使用
+### API
 
 ```
 var Px2rem = require('px2rem');
 var px2remIns = new Px2rem([config]);
-var cssText = ... // 原CSS文本
-var newCssText = px2remIns.generateThree(cssText, dpr); // 根据传入的dpr生成@1x、@2x、@3x样式
-var newCssText = px2remIns.generateRem(cssText); // px -> rem
+var originCssText = '...';
+var dpr = 2;
+var newCssText = px2remIns.generateThree(originCssText, dpr); // generate @1x, @2x and @3x version stylesheet
+var newCssText = px2remIns.generateRem(originCssText); // generate rem version stylesheet
 ```
 
-### 效果示例
+### Example
 
-#### 处理前：
+#### Pre processing:
 
-一份样式模板：
+One raw stylesheet: `test.css`
 
 ```
 .selector {
@@ -71,9 +68,9 @@ var newCssText = px2remIns.generateRem(cssText); // px -> rem
 }
 ```
 
-#### 处理后：
+#### After processing:
 
-rem版本：
+Rem version: `test.debug.css`
 
 ```
 .selector {
@@ -94,7 +91,7 @@ rem版本：
 }
 ```
 
-1x版本：
+@1x version: `test1x.debug.css`
 
 ```
 .selector {
@@ -105,7 +102,7 @@ rem版本：
 }
 ```
 
-2x版本：
+@2x version: `test2x.debug.css`
 
 ```
 .selector {
@@ -116,7 +113,7 @@ rem版本：
 }
 ```
 
-3x版本：
+@3x version: `test3x.debug.css`
 
 ```
 .selector {
@@ -127,10 +124,15 @@ rem版本：
 }
 ```
 
-## 实现方案
+## Technical proposal
 
-注释钩子 + css语法树解析
+comment hook + css parser
 
-后期优化：
+TODO:
 
-* 支持Media Query和Animation的keyframes
+* Support Media Query && Animation的keyframes
+
+## License
+
+MIT
+
