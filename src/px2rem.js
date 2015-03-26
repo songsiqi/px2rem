@@ -4,11 +4,11 @@ var _ = require('underscore');
 
 
 var defaultConfig = {
-    baseDpr: 2,             // 基准devicePixelRatio，默认为2
-    remUnit: 64,            // rem基准像素，默认为64
-    remPrecision: 6,        // rem计算精度，默认为6，即保留小数点后6位
-    forcePxComment: 'px',   // 不转换为rem的注释，默认为"px"
-    keepComment: 'no'       // 不参与转换的注释，默认为"no"，如1px的边框
+    baseDpr: 2,             // base device pixel ratio (default: 2)
+    remUnit: 64,            // rem unit value (default: 64)
+    remPrecision: 6,        // rem value precision (default: 6)
+    forcePxComment: 'px',   // force px comment (default: `px`)
+    keepComment: 'no'       // no transform value comment (default: `no`)
 };
 
 
@@ -18,7 +18,7 @@ function Px2rem(options) {
     extend(self.config, defaultConfig, options);
 }
 
-// 生成3份版本
+// generate @1x, @2x and @3x version stylesheet
 Px2rem.prototype.generateThree = function(cssText, dpr) {
     dpr = dpr || 2;
     var self = this;
@@ -29,18 +29,18 @@ Px2rem.prototype.generateThree = function(cssText, dpr) {
             return;
         }
         rule.declarations.forEach(function(declaration, i) {
-            // 需要转换：样式规则声明 && 含有px
+            // need transform: declaration && commented 'px'
             if (declaration.type === 'declaration' && /px/.test(declaration.value)) {
                 var nextDeclaration = rule.declarations[i + 1];
-                if (nextDeclaration && nextDeclaration.type === 'comment') { // 下一条规则是注释
-                    if (nextDeclaration.comment.trim() === config.keepComment) { // 不用转换标记
+                if (nextDeclaration && nextDeclaration.type === 'comment') { // next next declaration is comment
+                    if (nextDeclaration.comment.trim() === config.keepComment) { // no transform
                         nextDeclaration.toDelete = true;
                         return;
                     }
-                    if (nextDeclaration.comment.trim() === config.forcePxComment) { // 强制使用px
+                    if (nextDeclaration.comment.trim() === config.forcePxComment) { // force px
                         nextDeclaration.toDelete = true;
                     }
-                } else { // 普通转换
+                } else { // common transform
                     declaration.value = self._getCalcValue('px', declaration.value, dpr);
                 }
             }
@@ -51,7 +51,7 @@ Px2rem.prototype.generateThree = function(cssText, dpr) {
     return newCssText;
 };
 
-// 生成rem版本
+// generate rem version stylesheet
 Px2rem.prototype.generateRem = function(cssText) {
     var self = this;
     var config = self.config;
@@ -61,7 +61,7 @@ Px2rem.prototype.generateRem = function(cssText) {
         if (rule.type !== 'rule') {
             return;
         }
-        // 生成3份带[data-dpr]前缀的选择器，供强制用px的使用
+        // generate 3 new rules which has [data-dpr]
         var newRules = [];
         for (var dpr = 1; dpr <= 3; dpr++) {
             var newRule = {};
@@ -75,12 +75,13 @@ Px2rem.prototype.generateRem = function(cssText) {
         }
 
         rule.declarations.forEach(function(declaration, i) {
-            // 需要转换：样式规则声明 && 含有px
+            // need transform: declaration && commented 'px'
             if (declaration.type === 'declaration' && /px/.test(declaration.value)) {
                 var nextDeclaration = rule.declarations[i + 1];
-                if (nextDeclaration && nextDeclaration.type === 'comment') { // 下一条规则是注释
-                    if (nextDeclaration.comment.trim() === config.forcePxComment) { // 强制使用px，不转换为rem
-                        for (var dpr = 1; dpr <= 3; dpr++) { // 生成3份
+                if (nextDeclaration && nextDeclaration.type === 'comment') { // next next declaration is comment
+                    if (nextDeclaration.comment.trim() === config.forcePxComment) { // force px
+                        // generate 3 new declarations and put them in the new rules which has [data-dpr]
+                        for (var dpr = 1; dpr <= 3; dpr++) {
                             var newDeclaration = {};
                             extend(true, newDeclaration, declaration);
                             newDeclaration.value = self._getCalcValue('px', newDeclaration.value, dpr);
@@ -89,11 +90,11 @@ Px2rem.prototype.generateRem = function(cssText) {
                         declaration.toDelete = true;
                         nextDeclaration.toDelete = true;
                     }
-                    if (nextDeclaration.comment.trim() === config.keepComment) { // 不参与转换
+                    if (nextDeclaration.comment.trim() === config.keepComment) { // no transform
                         nextDeclaration.toDelete = true;
                         return;
                     }
-                } else { // 普通转换
+                } else { // common transform
                     declaration.value = self._getCalcValue('rem', declaration.value);
                 }
             }
@@ -106,7 +107,7 @@ Px2rem.prototype.generateRem = function(cssText) {
         }
     });
 
-    // 在原样式表尾部追加新的强制使用px的样式规则
+    // append the declarations which are forced to use px in the end of origin stylesheet
     newRulesList.forEach(function(rule) {
         astObj.stylesheet.rules.push(rule);
     });
@@ -116,7 +117,7 @@ Px2rem.prototype.generateRem = function(cssText) {
     return newCssText;
 };
 
-// 删除ast树中需要删除的内容，包括强制使用px的样式规则、标记注释
+// delete no use info in ast tree
 Px2rem.prototype._deleteNouseRules = function(astObj) {
     astObj.stylesheet.rules.forEach(function(rule) {
         if (rule.type !== 'rule') {
@@ -136,7 +137,7 @@ Px2rem.prototype._deleteNouseRules = function(astObj) {
     });
 };
 
-// 获取px或rem的计算值
+// get calculated value of px or rem
 Px2rem.prototype._getCalcValue = function(type, value, dpr) {
     var self = this;
     var config = self.config;
@@ -152,7 +153,7 @@ Px2rem.prototype._getCalcValue = function(type, value, dpr) {
         default:
             ret = value.replace(/(\d+)px/gi, function($0, $1) {
                 var remValue = $1 / config.remUnit;
-                if (parseInt(remValue) != remValue) { // 对小数控制精度
+                if (parseInt(remValue) != remValue) { // control decimal precision
                     remValue = parseFloat(remValue.toFixed(config.remPrecision));
                 }
                 return remValue + 'rem';

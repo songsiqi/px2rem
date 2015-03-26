@@ -8,7 +8,7 @@ var path = require('path');
 var fs = require('fs-extra');
 
 
-// 字符串转换为合适的类型（thanks to zepto）
+// string to variables of proper type（thanks to zepto）
 function deserializeValue(value) {
     var num;
     try {
@@ -25,7 +25,6 @@ function deserializeValue(value) {
     }
 }
 
-// 保存文件内容
 function saveFile(filePath, content) {
     fs.createFileSync(filePath);
     fs.writeFileSync(filePath, content, {encoding: 'utf8'});
@@ -35,12 +34,12 @@ function saveFile(filePath, content) {
 
 program.version(pkg.version)
     .option('-u, --remUnit [value]', 'set `rem` unit value (default: 64)', 64)
-    .option('-x, --threeVersion [value]', 'whether to generate 3x version (default: true)', true)
-    .option('-r, --remVersion [value]', 'whether to generate rem version (default: true)', true)
+    .option('-x, --threeVersion [value]', 'whether to generate @1x, @2x and @3x version stylesheet (default: true)', true)
+    .option('-r, --remVersion [value]', 'whether to generate rem version stylesheet (default: true)', true)
     .option('-b, --baseDpr [value]', 'set base device pixel ratio (default: 2)', 2)
-    .option('-p, --remPrecision [value]', 'set rem precision (default: 2)', 6)
+    .option('-p, --remPrecision [value]', 'set rem value precision (default: 6)', 6)
     .option('-f, --forcePxComment [value]', 'set force px comment (default: `px`)', 'px')
-    .option('-p, --keepComment [value]', 'set not change value comment (default: `no`)', 'no')
+    .option('-p, --keepComment [value]', 'set no transform value comment (default: `no`)', 'no')
     .option('-o, --output [path]', 'the output file dirname')
     .parse(process.argv);
 
@@ -71,7 +70,7 @@ program.args.forEach(function(filePath) {
     var outputPath = program.output || path.dirname(filePath);
     var fileName = path.basename(filePath);
 
-    // 生成3份版本
+    // generate @1x, @2x and @3x version stylesheet
     if (config.threeVersion) {
         for (var dpr = 1; dpr <= 3; dpr++) {
             var newCssText = px2remIns.generateThree(cssText, dpr);
@@ -81,7 +80,7 @@ program.args.forEach(function(filePath) {
         }
     }
 
-    // 生成rem版本
+    // generate rem version stylesheet
     if (config.remVersion) {
         var newCssText = px2remIns.generateRem(cssText);
         var newFileName = fileName.replace(/(.debug)?.css/, '.debug.css');
