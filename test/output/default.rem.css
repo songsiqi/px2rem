@@ -35,15 +35,15 @@ body {
 
 [data-dpr="1"] .header,
 [data-dpr="1"] .footer span {
-  font-size: 7px;
+  font-size: 14px;
 }
 
 [data-dpr="2"] .header,
 [data-dpr="2"] .footer span {
-  font-size: 14px;
+  font-size: 28px;
 }
 
 [data-dpr="3"] .header,
 [data-dpr="3"] .footer span {
-  font-size: 21px;
+  font-size: 42px;
 }
