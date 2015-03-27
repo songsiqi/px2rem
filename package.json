@@ -1,7 +1,7 @@
 {
     "name": "px2rem",
     "description": "According to one stylesheet, generate rem version and @1x, @2x and @3x stylesheet",
-    "version": "0.1.2",
+    "version": "0.1.3",
     "homepage": "http://gitlab.alibaba-inc.com/one-request/px2rem",
     "author": {
         "name": "颂奇",
