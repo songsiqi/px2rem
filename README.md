@@ -14,7 +14,7 @@ The raw stylesheet only contains @2x style, and if you
 * don't intend to transform the original value, eg: 1px border, add `/*no*/` after the declaration
 * intend to use px by force，eg: font-size, add `/*px*/` after the declaration
 
-**Attention: Dealing with SASS or LESS, only /* */ comment can be used, in order to have the comments persisted**
+**Attention: Dealing with SASS or LESS, only `/*...*/` comment can be used, in order to have the comments persisted**
 
 ### CLI tool
 
