@@ -40,9 +40,8 @@ Px2rem.prototype.generateThree = function(cssText, dpr) {
                     if (nextDeclaration.comment.trim() === config.forcePxComment) { // force px
                         nextDeclaration.toDelete = true;
                     }
-                } else { // common transform
-                    declaration.value = self._getCalcValue('px', declaration.value, dpr);
                 }
+                declaration.value = self._getCalcValue('px', declaration.value, dpr); // common transform
             }
         });
     });
@@ -94,8 +93,8 @@ Px2rem.prototype.generateRem = function(cssText) {
                         nextDeclaration.toDelete = true;
                         return;
                     }
-                } else { // common transform
-                    declaration.value = self._getCalcValue('rem', declaration.value);
+                } else {
+                    declaration.value = self._getCalcValue('rem', declaration.value); // common transform
                 }
             }
         });
