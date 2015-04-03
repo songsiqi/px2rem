@@ -130,7 +130,7 @@ comment hook + css parser
 
 TODO:
 
-* Support Media Query && Animation的keyframes
+* Support Media Query && Animation keyframes
 
 ## License
 
