@@ -1,3 +1,5 @@
+'use strict';
+
 var css = require('css');
 var extend = require('extend');
 var _ = require('underscore');

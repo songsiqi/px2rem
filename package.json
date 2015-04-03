@@ -1,21 +1,21 @@
 {
     "name": "px2rem",
     "description": "According to one stylesheet, generate rem version and @1x, @2x and @3x stylesheet",
-    "version": "0.1.4",
-    "homepage": "http://gitlab.alibaba-inc.com/one-request/px2rem",
+    "version": "0.1.5",
+    "homepage": "https://github.com/songsiqi/px2rem",
     "author": {
-        "name": "颂奇",
-        "email": "siqi.song@alibaba-inc.com"
+        "name": "songsiqi",
+        "email": "songsiqi2006@126.com"
     },
     "contributors": [
         {
-            "name": "岑安",
-            "email": "cenan.chr@alibaba-inc.com"
+            "name": "hongru",
+            "email": "hongru.chenhr@gmail.com"
         }
     ],
     "repository": {
         "type": "git",
-        "url": "git@gitlab.alibaba-inc.com:one-request/px2rem.git"
+        "url": "git@github.com:songsiqi/px2rem.git"
     },
     "engines": {
         "node": ">= 0.10.0"
