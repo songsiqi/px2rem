@@ -39,7 +39,7 @@ program.version(pkg.version)
     .option('-b, --baseDpr [value]', 'set base device pixel ratio (default: 2)', 2)
     .option('-p, --remPrecision [value]', 'set rem value precision (default: 6)', 6)
     .option('-f, --forcePxComment [value]', 'set force px comment (default: `px`)', 'px')
-    .option('-p, --keepComment [value]', 'set no transform value comment (default: `no`)', 'no')
+    .option('-n, --keepComment [value]', 'set no transform value comment (default: `no`)', 'no')
     .option('-o, --output [path]', 'the output file dirname')
     .parse(process.argv);
 
