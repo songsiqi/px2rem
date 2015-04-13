@@ -132,6 +132,17 @@ TODO:
 
 * Support Media Query && Animation keyframes
 
+## Change Log
+
+### 0.1.7
+
+* Fix cli option duplication bug.
+
+### 0.1.6
+
+* Fix regular expression bug.
+* Fix common comments bug which affects rem transformation.
+
 ## License
 
 MIT
