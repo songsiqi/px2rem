@@ -94,6 +94,8 @@ Px2rem.prototype.generateRem = function(cssText) {
                     if (nextDeclaration.comment.trim() === config.keepComment) { // no transform
                         nextDeclaration.toDelete = true;
                         return;
+                    } else {
+                        declaration.value = self._getCalcValue('rem', declaration.value); // common transform
                     }
                 } else {
                     declaration.value = self._getCalcValue('rem', declaration.value); // common transform
@@ -142,22 +144,31 @@ Px2rem.prototype._deleteNouseRules = function(astObj) {
 Px2rem.prototype._getCalcValue = function(type, value, dpr) {
     var self = this;
     var config = self.config;
+    var reg = /\b(\d+(.\d+)?)px\b/gi;
     var ret;
+
+    // control decimal precision of the calculated value
+    function getValue(value) {
+        var precision = config.remPrecision;
+        if (parseInt(value) != value) {
+            var decimalLen = value.toString().split('.')[1].length;
+            if (decimalLen > precision) {
+                value = value.toFixed(precision);
+            }
+        }
+        return value.toString() + type;
+    }
+
     switch (type) {
         case 'px':
-            ret = value.replace(/(\d+)px/gi, function($0, $1) {
-                var newSize = parseInt($1 * dpr / config.baseDpr);
-                return newSize + 'px';
+            ret = value.replace(reg, function($0, $1) {
+                return getValue($1 * dpr / config.baseDpr, 'px');
             });
             break;
         case 'rem':
         default:
-            ret = value.replace(/(\d+)px/gi, function($0, $1) {
-                var remValue = $1 / config.remUnit;
-                if (parseInt(remValue) != remValue) { // control decimal precision
-                    remValue = parseFloat(remValue.toFixed(config.remPrecision));
-                }
-                return remValue + 'rem';
+            ret = value.replace(reg, function($0, $1) {
+                return getValue($1 / config.remUnit, 'rem');
             });
             break;
     }
