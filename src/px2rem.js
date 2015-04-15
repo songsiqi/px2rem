@@ -144,7 +144,7 @@ Px2rem.prototype._deleteNouseRules = function(astObj) {
 Px2rem.prototype._getCalcValue = function(type, value, dpr) {
     var self = this;
     var config = self.config;
-    var reg = /\b(\d+(.\d+)?)px\b/gi;
+    var reg = /\b(\d+(\.\d+)?)px\b/gi;
     var ret;
 
     // control decimal precision of the calculated value

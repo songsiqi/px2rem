@@ -1,7 +1,7 @@
 {
     "name": "px2rem",
     "description": "According to one stylesheet, generate rem version and @1x, @2x and @3x stylesheet",
-    "version": "0.1.7",
+    "version": "0.1.8",
     "homepage": "https://github.com/songsiqi/px2rem",
     "author": {
         "name": "songsiqi",
