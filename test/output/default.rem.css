@@ -15,6 +15,7 @@ body {
 
 .sidebar {
   width: 0.625rem;
+  -webkit-box-shadow: 0 0.03125rem 0.03125rem rgba(0, 0, 0, 0.12);
   /* px含有小数 */
   padding: 0.382813rem 0.375rem;
   /* Data URI里面含有px字符 */
