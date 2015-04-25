@@ -1,7 +1,7 @@
 {
     "name": "px2rem",
     "description": "According to one stylesheet, generate rem version and @1x, @2x and @3x stylesheet",
-    "version": "0.1.8",
+    "version": "0.1.9",
     "homepage": "https://github.com/songsiqi/px2rem",
     "author": {
         "name": "songsiqi",
@@ -32,7 +32,8 @@
         "istanbul": "^0.3.6",
         "coveralls": "^2.10.0",
         "mocha": "^2.1.0",
-        "cssmin": "~0.4.3"
+        "cssmin": "~0.4.3",
+        "browserify": "^9.0.8"
     },
     "directories": {
         "test": "test"
@@ -42,7 +43,8 @@
     },
     "scripts": {
         "test": "mocha",
-        "test-travis": "node node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha --report lcovonly -- --reporter dot"
+        "test-travis": "node node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha --report lcovonly -- --reporter dot",
+        "browserify": "browserify -r ./index.js:px2rem -o ./browser/bundle.js"
     },
     "main": "index.js",
     "keywords": [
