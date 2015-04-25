@@ -134,6 +134,10 @@ TODO:
 
 ## Change Log
 
+### 0.1.9
+
+* Add browserify support.
+
 ### 0.1.8
 
 * Fix cli option duplication bug.
