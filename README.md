@@ -2,6 +2,20 @@
 
 According to one stylesheet, generate rem version and @1x, @2x and @3x stylesheet.
 
+[![NPM version][npm-image]][npm-url]
+[![Build status][travis-image]][travis-url]
+[![Test coverage][coveralls-image]][coveralls-url]
+[![Downloads][downloads-image]][downloads-url]
+
+[npm-image]: https://img.shields.io/npm/v/lsl.svg?style=flat-square
+[npm-url]: https://npmjs.org/package/px2rem
+[travis-image]: https://img.shields.io/travis/songsiqi/px2rem.svg?style=flat-square
+[travis-url]: https://travis-ci.org/songsiqi/px2rem
+[coveralls-image]: https://img.shields.io/coveralls/songsiqi/px2rem.svg?style=flat-square
+[coveralls-url]: https://coveralls.io/r/songsiqi/px2rem
+[downloads-image]: http://img.shields.io/npm/dm/px2rem.svg?style=flat-square
+[downloads-url]: https://npmjs.org/package/px2rem
+
 This node module contains:
 
 * a CLI tool
