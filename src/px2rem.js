@@ -148,30 +148,30 @@ Px2rem.prototype._getCalcValue = function(type, value, dpr) {
     var ret;
 
     // control decimal precision of the calculated value
-    function getValue(value) {
+    function getValue(val) {
+        if (val == 0) {
+            return 0;
+        }
         var precision = config.remPrecision;
-        if (parseInt(value) != value) {
-            var decimalLen = value.toString().split('.')[1].length;
+        if (parseInt(val) != val) {
+            var decimalLen = val.toString().split('.')[1].length;
             if (decimalLen > precision) {
-                value = value.toFixed(precision);
+                val = val.toFixed(precision);
             }
         }
-        return value.toString() + type;
+        return val.toString() + type;
     }
 
-    switch (type) {
-        case 'px':
-            ret = value.replace(reg, function($0, $1) {
-                return getValue($1 * dpr / config.baseDpr, 'px');
-            });
-            break;
-        case 'rem':
-        default:
-            ret = value.replace(reg, function($0, $1) {
-                return getValue($1 / config.remUnit, 'rem');
-            });
-            break;
+    if (type === 'px') {
+        ret = value.replace(reg, function($0, $1) {
+            return getValue($1 * dpr / config.baseDpr);
+        });
+    } else {
+        ret = value.replace(reg, function($0, $1) {
+            return getValue($1 / config.remUnit);
+        });
     }
+
     return ret;
 };
 
