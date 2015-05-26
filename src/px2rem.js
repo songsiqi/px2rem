@@ -2,7 +2,6 @@
 
 var css = require('css');
 var extend = require('extend');
-var _ = require('underscore');
 
 
 var defaultConfig = {
@@ -12,12 +11,12 @@ var defaultConfig = {
     forcePxComment: 'px',   // force px comment (default: `px`)
     keepComment: 'no'       // no transform value comment (default: `no`)
 };
+var arrayPush = Array.prototype.push;
 
 
 function Px2rem(options) {
-    var self = this;
-    self.config = {};
-    extend(self.config, defaultConfig, options);
+    this.config = {};
+    extend(this.config, defaultConfig, options);
 }
 
 // generate @1x, @2x and @3x version stylesheet
@@ -26,30 +25,38 @@ Px2rem.prototype.generateThree = function(cssText, dpr) {
     var self = this;
     var config = self.config;
     var astObj = css.parse(cssText);
-    astObj.stylesheet.rules.forEach(function(rule) {
-        if (rule.type !== 'rule') {
-            return;
-        }
-        rule.declarations.forEach(function(declaration, i) {
-            // need transform: declaration && commented 'px'
-            if (declaration.type === 'declaration' && /px/.test(declaration.value)) {
-                var nextDeclaration = rule.declarations[i + 1];
-                if (nextDeclaration && nextDeclaration.type === 'comment') { // next next declaration is comment
-                    if (nextDeclaration.comment.trim() === config.keepComment) { // no transform
-                        nextDeclaration.toDelete = true;
-                        return;
-                    }
-                    if (nextDeclaration.comment.trim() === config.forcePxComment) { // force px
-                        nextDeclaration.toDelete = true;
-                    }
-                }
-                declaration.value = self._getCalcValue('px', declaration.value, dpr); // common transform
+
+    function processRules(rules) {
+        rules.forEach(function(rule) {
+            if (rule.type === 'media') {
+                return processRules(rule.rules); // recursive invocation while dealing with media queries
+            } else if (rule.type !== 'rule') {
+                return;
             }
+
+            rule.declarations.forEach(function(declaration, i) {
+                // need transform: declaration && commented 'px'
+                if (declaration.type === 'declaration' && /px/.test(declaration.value)) {
+                    var nextDeclaration = rule.declarations[i + 1];
+                    if (nextDeclaration && nextDeclaration.type === 'comment') { // next next declaration is comment
+                        if (nextDeclaration.comment.trim() === config.keepComment) { // no transform
+                            nextDeclaration.toDelete = true;
+                            return;
+                        } else if (nextDeclaration.comment.trim() === config.forcePxComment) { // force px
+                            nextDeclaration.toDelete = true;
+                        }
+                    }
+                    declaration.value = self._getCalcValue('px', declaration.value, dpr); // common transform
+                }
+            });
         });
-    });
-    self._deleteNouseRules(astObj);
-    var newCssText = css.stringify(astObj);
-    return newCssText;
+
+        self._deleteNouseRules(rules);
+    }
+
+    processRules(astObj.stylesheet.rules);
+
+    return css.stringify(astObj);
 };
 
 // generate rem version stylesheet
@@ -57,122 +64,93 @@ Px2rem.prototype.generateRem = function(cssText) {
     var self = this;
     var config = self.config;
     var astObj = css.parse(cssText);
-    var newRulesList = [];
-    astObj.stylesheet.rules.forEach(function(rule) {
-        if (rule.type !== 'rule') {
-            return;
-        }
-        // generate 3 new rules which has [data-dpr]
-        var newRules = [];
-        for (var dpr = 1; dpr <= 3; dpr++) {
-            var newRule = {};
-            newRule.type = rule.type;
-            newRule.selectors = [];
-            rule.selectors.forEach(function(sel) {
-                newRule.selectors.push('[data-dpr="' + dpr + '"] ' + sel);
-            });
-            newRule.declarations = [];
-            newRules.push(newRule);
-        }
 
-        rule.declarations.forEach(function(declaration, i) {
-            // need transform: declaration && commented 'px'
-            if (declaration.type === 'declaration' && /px/.test(declaration.value)) {
-                var nextDeclaration = rule.declarations[i + 1];
-                if (nextDeclaration && nextDeclaration.type === 'comment') { // next next declaration is comment
-                    if (nextDeclaration.comment.trim() === config.forcePxComment) { // force px
-                        // generate 3 new declarations and put them in the new rules which has [data-dpr]
-                        for (var dpr = 1; dpr <= 3; dpr++) {
-                            var newDeclaration = {};
-                            extend(true, newDeclaration, declaration);
-                            newDeclaration.value = self._getCalcValue('px', newDeclaration.value, dpr);
-                            newRules[dpr - 1].declarations.push(newDeclaration);
+    function processRules(rules) {
+        var newRulesList = [];
+        rules.forEach(function(rule) {
+            if (rule.type === 'media') {
+                return processRules(rule.rules); // recursive invocation while dealing with media queries
+            } else if (rule.type !== 'rule') {
+                return;
+            }
+
+            // generate 3 new rules which has [data-dpr]
+            var newRules = [];
+            for (var dpr = 1; dpr <= 3; dpr++) {
+                var newRule = {};
+                newRule.type = rule.type;
+                newRule.selectors = [];
+                rule.selectors.forEach(function(sel) {
+                    newRule.selectors.push('[data-dpr="' + dpr + '"] ' + sel);
+                });
+                newRule.declarations = [];
+                newRules.push(newRule);
+            }
+
+            rule.declarations.forEach(function(declaration, i) {
+                // need transform: declaration && commented 'px'
+                if (declaration.type === 'declaration' && /px/.test(declaration.value)) {
+                    var nextDeclaration = rule.declarations[i + 1];
+                    if (nextDeclaration && nextDeclaration.type === 'comment') { // next next declaration is comment
+                        if (nextDeclaration.comment.trim() === config.forcePxComment) { // force px
+                            // generate 3 new declarations and put them in the new rules which has [data-dpr]
+                            for (var dpr = 1; dpr <= 3; dpr++) {
+                                var newDeclaration = {};
+                                extend(true, newDeclaration, declaration);
+                                newDeclaration.value = self._getCalcValue('px', newDeclaration.value, dpr);
+                                newRules[dpr - 1].declarations.push(newDeclaration);
+                            }
+                            declaration.toDelete = true;
+                            nextDeclaration.toDelete = true;
+                        } else if (nextDeclaration.comment.trim() === config.keepComment) { // no transform
+                            nextDeclaration.toDelete = true;
+                        } else {
+                            declaration.value = self._getCalcValue('rem', declaration.value); // common transform
                         }
-                        declaration.toDelete = true;
-                        nextDeclaration.toDelete = true;
-                    }
-                    if (nextDeclaration.comment.trim() === config.keepComment) { // no transform
-                        nextDeclaration.toDelete = true;
-                        return;
                     } else {
                         declaration.value = self._getCalcValue('rem', declaration.value); // common transform
                     }
-                } else {
-                    declaration.value = self._getCalcValue('rem', declaration.value); // common transform
                 }
-            }
+            });
+
+            arrayPush.apply(newRulesList, newRules);
         });
 
-        if (newRules[0].declarations.length) {
-            newRules.forEach(function(rule) {
-                newRulesList.push(rule);
-            });
-        }
-    });
+        // append the declarations which are forced to use px in the end of origin stylesheet
+        arrayPush.apply(rules, newRulesList);
 
-    // append the declarations which are forced to use px in the end of origin stylesheet
-    newRulesList.forEach(function(rule) {
-        astObj.stylesheet.rules.push(rule);
-    });
+        self._deleteNouseRules(rules);
+    }
 
-    self._deleteNouseRules(astObj);
-    var newCssText = css.stringify(astObj);
-    return newCssText;
+    processRules(astObj.stylesheet.rules);
+
+    return css.stringify(astObj);
 };
 
-// delete no use info in ast tree
-Px2rem.prototype._deleteNouseRules = function(astObj) {
-    astObj.stylesheet.rules.forEach(function(rule) {
-        if (rule.type !== 'rule') {
-            return;
+// delete no use info in rules in ast tree
+Px2rem.prototype._deleteNouseRules = function(rules) {
+    rules.forEach(function(rule, i) {
+        if (rule.type === 'rule') {
+            rule.declarations = rule.declarations.filter(function(declaration) {
+                return !declaration.toDelete;
+            });
         }
-        rule.declarations.forEach(function(declaration, i) {
-            if (declaration.toDelete) {
-                rule.declarations[i] = undefined;
-            }
-        });
-    });
-    astObj.stylesheet.rules.forEach(function(rule) {
-        if (rule.type !== 'rule') {
-            return;
-        }
-        rule.declarations = _.compact(rule.declarations);
     });
 };
 
 // get calculated value of px or rem
 Px2rem.prototype._getCalcValue = function(type, value, dpr) {
-    var self = this;
-    var config = self.config;
-    var reg = /\b(\d+(\.\d+)?)px\b/gi;
-    var ret;
+    var config = this.config;
+    var REG = /\b(\d+(\.\d+)?)px\b/gi;
 
-    // control decimal precision of the calculated value
     function getValue(val) {
-        if (val == 0) {
-            return 0;
-        }
-        var precision = config.remPrecision;
-        if (parseInt(val) != val) {
-            var decimalLen = val.toString().split('.')[1].length;
-            if (decimalLen > precision) {
-                val = val.toFixed(precision);
-            }
-        }
-        return val.toString() + type;
+        val = parseFloat(val.toFixed(config.remPrecision)); // control decimal precision of the calculated value
+        return val == 0 ? val : val + type;
     }
 
-    if (type === 'px') {
-        ret = value.replace(reg, function($0, $1) {
-            return getValue($1 * dpr / config.baseDpr);
-        });
-    } else {
-        ret = value.replace(reg, function($0, $1) {
-            return getValue($1 / config.remUnit);
-        });
-    }
-
-    return ret;
+    return value.replace(REG, function($0, $1) {
+        return type === 'px' ? getValue($1 * dpr / config.baseDpr) : getValue($1 / config.remUnit);
+    });
 };
 
 module.exports = Px2rem;

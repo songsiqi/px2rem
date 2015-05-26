@@ -144,9 +144,13 @@ comment hook + css parser
 
 TODO:
 
-* Support Media Query && Animation keyframes
+* Support Animation keyframes.
 
 ## Change Log
+
+### 0.2.0
+
+* Support media query.
 
 ### 0.1.9
 

@@ -1,7 +1,7 @@
 {
     "name": "px2rem",
     "description": "According to one stylesheet, generate rem version and @1x, @2x and @3x stylesheet",
-    "version": "0.1.10",
+    "version": "0.2.0",
     "homepage": "https://github.com/songsiqi/px2rem",
     "author": {
         "name": "songsiqi",
@@ -23,7 +23,6 @@
     "dependencies": {
         "css": "~2.2.0",
         "extend": "~2.0.0",
-        "underscore": "~1.8.2",
         "commander": "~2.6.0",
         "chalk": "~0.5.1",
         "fs-extra": "~0.16.3"
