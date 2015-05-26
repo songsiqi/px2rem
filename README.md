@@ -148,13 +148,9 @@ TODO:
 
 ## Change Log
 
-### 0.2.0
+### 0.2.1
 
 * Support media query.
-
-### 0.1.9
-
-* Add browserify support.
 
 ### 0.1.8
 
