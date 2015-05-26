@@ -113,7 +113,9 @@ Px2rem.prototype.generateRem = function(cssText) {
             });
 
             // append the declarations which are forced to use px in the end of origin stylesheet
-            arrayPush.apply(rules, newRules);
+            if (newRules[0].declarations.length) {
+                arrayPush.apply(rules, newRules);
+            }
         });
 
         self._deleteNouseRules(rules);
