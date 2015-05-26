@@ -11,6 +11,7 @@ describe('px2rem', function() {
         var outputPath = path.join(__dirname, 'output/default.rem.css');
         var srcText = fs.readFileSync(srcPath, {encoding:'utf8'});
         var outputText = px2rem.generateRem(srcText);
+        // console.log(outputText)
         assert.equal(cssmin(outputText), cssmin(fs.readFileSync(outputPath, {encoding:'utf8'})));
     });
 
