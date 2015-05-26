@@ -66,7 +66,6 @@ Px2rem.prototype.generateRem = function(cssText) {
     var astObj = css.parse(cssText);
 
     function processRules(rules) {
-        var newRulesList = [];
         rules.forEach(function(rule) {
             if (rule.type === 'media') {
                 return processRules(rule.rules); // recursive invocation while dealing with media queries
@@ -113,11 +112,9 @@ Px2rem.prototype.generateRem = function(cssText) {
                 }
             });
 
-            arrayPush.apply(newRulesList, newRules);
+            // append the declarations which are forced to use px in the end of origin stylesheet
+            arrayPush.apply(rules, newRules);
         });
-
-        // append the declarations which are forced to use px in the end of origin stylesheet
-        arrayPush.apply(rules, newRulesList);
 
         self._deleteNouseRules(rules);
     }
