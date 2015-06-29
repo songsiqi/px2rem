@@ -33,13 +33,11 @@ function saveFile(filePath, content) {
 
 
 program.version(pkg.version)
-    .option('-u, --remUnit [value]', 'set `rem` unit value (default: 64)', 64)
-    .option('-x, --threeVersion [value]', 'whether to generate @1x, @2x and @3x version stylesheet (default: true)', true)
+    .option('-u, --remUnit [value]', 'set `rem` unit value (default: 75)', 75)
+    .option('-x, --threeVersion [value]', 'whether to generate @1x, @2x and @3x version stylesheet (default: false)', false)
     .option('-r, --remVersion [value]', 'whether to generate rem version stylesheet (default: true)', true)
     .option('-b, --baseDpr [value]', 'set base device pixel ratio (default: 2)', 2)
     .option('-p, --remPrecision [value]', 'set rem value precision (default: 6)', 6)
-    .option('-f, --forcePxComment [value]', 'set force px comment (default: `px`)', 'px')
-    .option('-n, --keepComment [value]', 'set no transform value comment (default: `no`)', 'no')
     .option('-o, --output [path]', 'the output file dirname')
     .parse(process.argv);
 
@@ -53,9 +51,7 @@ var config = {
     threeVersion: deserializeValue(program.threeVersion),
     remVersion: deserializeValue(program.remVersion),
     baseDpr: deserializeValue(program.baseDpr),
-    remPrecision: deserializeValue(program.remPrecision),
-    forcePxComment: deserializeValue(program.forcePxComment),
-    keepComment: deserializeValue(program.keepComment)
+    remPrecision: deserializeValue(program.remPrecision)
 };
 
 var px2remIns = new Px2rem(config);
