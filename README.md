@@ -46,13 +46,11 @@ $ px2rem -o build src/*.css
 
     -h, --help                      output usage information
     -V, --version                   output the version number
-    -u, --remUnit [value]           set `rem` unit value (default: 64)
-    -x, --threeVersion [value]      whether to generate @1x, @2x and @3x version stylesheet (default: true)
+    -u, --remUnit [value]           set `rem` unit value (default: 75)
+    -x, --threeVersion [value]      whether to generate @1x, @2x and @3x version stylesheet (default: false)
     -r, --remVersion [value]        whether to generate rem version stylesheet (default: true)
     -b, --baseDpr [value]           set base device pixel ratio (default: 2)
-    -p, --remPrecision [value]      set rem value precision (default: 2)
-    -f, --forcePxComment [value]    set force px comment (default: `px`)
-    -p, --keepComment [value]       set no transform value comment (default: `no`)
+    -p, --remPrecision [value]      set rem value precision (default: 6)
     -o, --output [path]             the output file dirname
 ```
 
@@ -75,7 +73,7 @@ One raw stylesheet: `test.css`
 
 ```
 .selector {
-    width: 128px;
+    width: 150px;
     height: 64px; /*px*/
     font-size: 28px; /*px*/
     border: 1px solid #ddd; /*no*/
@@ -109,7 +107,7 @@ Rem version: `test.debug.css`
 
 ```
 .selector {
-    width: 64px;
+    width: 75px;
     height: 32px;
     font-size: 14px;
     border: 1px solid #ddd;
@@ -120,7 +118,7 @@ Rem version: `test.debug.css`
 
 ```
 .selector {
-    width: 128px;
+    width: 150px;
     height: 64px;
     font-size: 28px;
     border: 1px solid #ddd;
@@ -131,7 +129,7 @@ Rem version: `test.debug.css`
 
 ```
 .selector {
-    width: 192px;
+    width: 225px;
     height: 96px;
     font-size: 42px;
     border: 1px solid #ddd;
@@ -147,6 +145,12 @@ TODO:
 * Support Animation keyframes.
 
 ## Change Log
+
+### 0.3.0
+
+* Change default remUnit to 75.
+* Delete comment config.
+* Don't generate @1x, @2x and @3x version stylesheet by default.
 
 ### 0.2.2
 
