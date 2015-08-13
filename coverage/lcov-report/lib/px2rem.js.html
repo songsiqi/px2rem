@@ -1,0 +1,510 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for lib/px2rem.js</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../prettify.css">
+    <link rel="stylesheet" href="../base.css">
+    <style type='text/css'>
+        div.coverage-summary .sorter {
+            background-image: url(../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class="header high">
+    <h1>Code coverage report for <span class="entity">lib/px2rem.js</span></h1>
+    <h2>
+        Statements: <span class="metric">100% <small>(85 / 85)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Branches: <span class="metric">97.62% <small>(41 / 42)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Functions: <span class="metric">100% <small>(16 / 16)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Lines: <span class="metric">100% <small>(85 / 85)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
+    </h2>
+    <div class="path"><a href="../index.html">All files</a> &#187; <a href="index.html">lib/</a> &#187; px2rem.js</div>
+</div>
+<div class="body">
+<pre><table class="coverage">
+<tr><td class="line-count">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156</td><td class="line-coverage"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">12</span>
+<span class="cline-any cline-yes">72</span>
+<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-yes">66</span>
+<span class="cline-any cline-yes">18</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">48</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">300</span>
+<span class="cline-any cline-yes">156</span>
+<span class="cline-any cline-yes">156</span>
+<span class="cline-any cline-yes">84</span>
+<span class="cline-any cline-yes">12</span>
+<span class="cline-any cline-yes">12</span>
+<span class="cline-any cline-yes">72</span>
+<span class="cline-any cline-yes">48</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">144</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-yes">24</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">22</span>
+<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">16</span>
+<span class="cline-any cline-yes">16</span>
+<span class="cline-any cline-yes">48</span>
+<span class="cline-any cline-yes">48</span>
+<span class="cline-any cline-yes">48</span>
+<span class="cline-any cline-yes">48</span>
+<span class="cline-any cline-yes">60</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">48</span>
+<span class="cline-any cline-yes">48</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">16</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">100</span>
+<span class="cline-any cline-yes">52</span>
+<span class="cline-any cline-yes">52</span>
+<span class="cline-any cline-yes">28</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">16</span>
+<span class="cline-any cline-yes">48</span>
+<span class="cline-any cline-yes">48</span>
+<span class="cline-any cline-yes">48</span>
+<span class="cline-any cline-yes">48</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">16</span>
+<span class="cline-any cline-yes">16</span>
+<span class="cline-any cline-yes">12</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">24</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">16</span>
+<span class="cline-any cline-yes">12</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">16</span>
+<span class="cline-any cline-yes">132</span>
+<span class="cline-any cline-yes">100</span>
+<span class="cline-any cline-yes">448</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">224</span>
+<span class="cline-any cline-yes">224</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">272</span>
+<span class="cline-any cline-yes">272</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">224</span>
+<span class="cline-any cline-yes">272</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">'use strict';
+&nbsp;
+var css = require('css');
+var extend = require('extend');
+&nbsp;
+&nbsp;
+var defaultConfig = {
+    baseDpr: 2,             // base device pixel ratio (default: 2)
+    remUnit: 75,            // rem unit value (default: 75)
+    remPrecision: 6,        // rem value precision (default: 6)
+    forcePxComment: 'px',   // force px comment (default: `px`)
+    keepComment: 'no'       // no transform value comment (default: `no`)
+};
+var arrayPush = Array.prototype.push;
+&nbsp;
+&nbsp;
+function Px2rem(options) {
+    this.config = {};
+    extend(this.config, defaultConfig, options);
+}
+&nbsp;
+// generate @1x, @2x and @3x version stylesheet
+Px2rem.prototype.generateThree = function(cssText, dpr) {
+    dpr = dpr || <span class="branch-1 cbranch-no" title="branch not covered" >2;</span>
+    var self = this;
+    var config = self.config;
+    var astObj = css.parse(cssText);
+&nbsp;
+    function processRules(rules) {
+        rules.forEach(function(rule) {
+            if (rule.type === 'media') {
+                return processRules(rule.rules); // recursive invocation while dealing with media queries
+            } else if (rule.type !== 'rule') {
+                return;
+            }
+&nbsp;
+            rule.declarations.forEach(function(declaration, i) {
+                // need transform: declaration &amp;&amp; commented 'px'
+                if (declaration.type === 'declaration' &amp;&amp; /px/.test(declaration.value)) {
+                    var nextDeclaration = rule.declarations[i + 1];
+                    if (nextDeclaration &amp;&amp; nextDeclaration.type === 'comment') { // next next declaration is comment
+                        if (nextDeclaration.comment.trim() === config.keepComment) { // no transform
+                            nextDeclaration.toDelete = true;
+                            return;
+                        } else if (nextDeclaration.comment.trim() === config.forcePxComment) { // force px
+                            nextDeclaration.toDelete = true;
+                        }
+                    }
+                    declaration.value = self._getCalcValue('px', declaration.value, dpr); // common transform
+                }
+            });
+        });
+&nbsp;
+        self._deleteNouseRules(rules);
+    }
+&nbsp;
+    processRules(astObj.stylesheet.rules);
+&nbsp;
+    return css.stringify(astObj);
+};
+&nbsp;
+// generate rem version stylesheet
+Px2rem.prototype.generateRem = function(cssText) {
+    var self = this;
+    var config = self.config;
+    var astObj = css.parse(cssText);
+&nbsp;
+    function processRules(rules) {
+        rules.forEach(function(rule) {
+            if (rule.type === 'media') {
+                return processRules(rule.rules); // recursive invocation while dealing with media queries
+            } else if (rule.type !== 'rule') {
+                return;
+            }
+&nbsp;
+            // generate 3 new rules which has [data-dpr]
+            var newRules = [];
+            for (var dpr = 1; dpr &lt;= 3; dpr++) {
+                var newRule = {};
+                newRule.type = rule.type;
+                newRule.selectors = [];
+                rule.selectors.forEach(function(sel) {
+                    newRule.selectors.push('[data-dpr="' + dpr + '"] ' + sel);
+                });
+                newRule.declarations = [];
+                newRules.push(newRule);
+            }
+&nbsp;
+            rule.declarations.forEach(function(declaration, i) {
+                // need transform: declaration &amp;&amp; commented 'px'
+                if (declaration.type === 'declaration' &amp;&amp; /px/.test(declaration.value)) {
+                    var nextDeclaration = rule.declarations[i + 1];
+                    if (nextDeclaration &amp;&amp; nextDeclaration.type === 'comment') { // next next declaration is comment
+                        if (nextDeclaration.comment.trim() === config.forcePxComment) { // force px
+                            // generate 3 new declarations and put them in the new rules which has [data-dpr]
+                            for (var dpr = 1; dpr &lt;= 3; dpr++) {
+                                var newDeclaration = {};
+                                extend(true, newDeclaration, declaration);
+                                newDeclaration.value = self._getCalcValue('px', newDeclaration.value, dpr);
+                                newRules[dpr - 1].declarations.push(newDeclaration);
+                            }
+                            declaration.toDelete = true;
+                            nextDeclaration.toDelete = true;
+                        } else if (nextDeclaration.comment.trim() === config.keepComment) { // no transform
+                            nextDeclaration.toDelete = true;
+                        } else {
+                            declaration.value = self._getCalcValue('rem', declaration.value); // common transform
+                        }
+                    } else {
+                        declaration.value = self._getCalcValue('rem', declaration.value); // common transform
+                    }
+                }
+            });
+&nbsp;
+            // append the declarations which are forced to use px in the end of origin stylesheet
+            if (newRules[0].declarations.length) {
+                arrayPush.apply(rules, newRules);
+            }
+        });
+&nbsp;
+        self._deleteNouseRules(rules);
+    }
+&nbsp;
+    processRules(astObj.stylesheet.rules);
+&nbsp;
+    return css.stringify(astObj);
+};
+&nbsp;
+// delete no use info in rules in ast tree
+Px2rem.prototype._deleteNouseRules = function(rules) {
+    rules.forEach(function(rule, i) {
+        if (rule.type === 'rule') {
+            rule.declarations = rule.declarations.filter(function(declaration) {
+                return !declaration.toDelete;
+            });
+        }
+    });
+};
+&nbsp;
+// get calculated value of px or rem
+Px2rem.prototype._getCalcValue = function(type, value, dpr) {
+    var config = this.config;
+    var REG = /\b(\d+(\.\d+)?)px\b/gi;
+&nbsp;
+    function getValue(val) {
+        val = parseFloat(val.toFixed(config.remPrecision)); // control decimal precision of the calculated value
+        return val == 0 ? val : val + type;
+    }
+&nbsp;
+    return value.replace(REG, function($0, $1) {
+        return type === 'px' ? getValue($1 * dpr / config.baseDpr) : getValue($1 / config.remUnit);
+    });
+};
+&nbsp;
+module.exports = Px2rem;
+&nbsp;</pre></td></tr>
+</table></pre>
+
+</div>
+<div class="footer">
+    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Wed Aug 12 2015 16:10:24 GMT+0800 (CST)</div>
+</div>
+<script src="../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../sorter.js"></script>
+</body>
+</html>
