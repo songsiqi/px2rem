@@ -16,10 +16,12 @@ According to one stylesheet, generate rem version and @1x, @2x and @3x styleshee
 [downloads-image]: http://img.shields.io/npm/dm/px2rem.svg?style=flat-square
 [downloads-url]: https://npmjs.org/package/px2rem
 
-This node module contains:
+This set of tools contains:
 
 * a CLI tool
 * [gulp plugin](https://www.npmjs.com/package/gulp-px3rem)
+* [px2rem loader](https://www.npmjs.com/package/px2rem-loader)
+* [postcss plugin](https://www.npmjs.com/package/postcss-px2rem)
 
 ## Usage
 
@@ -146,7 +148,7 @@ TODO:
 
 ## Change Log
 
-### 0.3.0
+### 0.3.1
 
 * Change default remUnit to 75.
 * Delete comment config.
