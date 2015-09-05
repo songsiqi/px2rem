@@ -148,7 +148,7 @@ TODO:
 
 ## Change Log
 
-### 0.4.0
+### 0.4.1
 
 * The generated [data-dpr] rules follow the origin url, no longer placed at the end of the whole style sheet.
 * Optimize 0px, do not generate 3 [data-dpr] rules.
