@@ -63,8 +63,8 @@ var Px2rem = require('px2rem');
 var px2remIns = new Px2rem([config]);
 var originCssText = '...';
 var dpr = 2;
-var newCssText = px2remIns.generateThree(originCssText, dpr); // generate @1x, @2x and @3x version stylesheet
 var newCssText = px2remIns.generateRem(originCssText); // generate rem version stylesheet
+var newCssText = px2remIns.generateThree(originCssText, dpr); // generate @1x, @2x and @3x version stylesheet
 ```
 
 ### Example
