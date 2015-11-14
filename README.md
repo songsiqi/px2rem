@@ -20,7 +20,7 @@ This set of tools contains:
 
 * a CLI tool
 * [gulp plugin](https://www.npmjs.com/package/gulp-px3rem)
-* [px2rem loader](https://www.npmjs.com/package/px2rem-loader)
+* [webpack loader](https://www.npmjs.com/package/px2rem-loader)
 * [postcss plugin](https://www.npmjs.com/package/postcss-px2rem)
 
 ## Usage
@@ -148,9 +148,9 @@ TODO:
 
 ## Change Log
 
-### 0.4.1
+### 0.4.2
 
-* The generated [data-dpr] rules follow the origin url, no longer placed at the end of the whole style sheet.
+* The generated [data-dpr] rules follow the origin rule, no longer placed at the end of the whole style sheet.
 * Optimize 0px, do not generate 3 [data-dpr] rules.
 
 ### 0.3.1
