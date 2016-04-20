@@ -39,6 +39,7 @@ program.version(pkg.version)
     .option('-b, --baseDpr [value]', 'set base device pixel ratio (default: 2)', 2)
     .option('-p, --remPrecision [value]', 'set rem value precision (default: 6)', 6)
     .option('-o, --output [path]', 'the output file dirname')
+    .option('-n, --noTransformProperties [properties]', 'should not be transformed properties')
     .parse(process.argv);
 
 if (!program.args.length) {
@@ -51,7 +52,8 @@ var config = {
     threeVersion: deserializeValue(program.threeVersion),
     remVersion: deserializeValue(program.remVersion),
     baseDpr: deserializeValue(program.baseDpr),
-    remPrecision: deserializeValue(program.remPrecision)
+    remPrecision: deserializeValue(program.remPrecision),
+    noTransformProperties: deserializeValue(program.noTransformProperties)
 };
 
 var px2remIns = new Px2rem(config);

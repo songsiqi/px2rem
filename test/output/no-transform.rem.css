@@ -1,0 +1,25 @@
+/* 不被转换的属性 */
+.no-transform {
+    border: 2px solid #ccc;
+    font: 14px/1.5 "Microsoft YaHei";
+    border-radius: 5px;
+    -webkit-box-shadow: 0 3px 3px rgba(0, 0, 0, 0.12);
+    -moz-box-shadow: 0 3px 3px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 3px 3px rgba(0, 0, 0, 0.12);
+}
+
+.no-transform .title {
+    border-style: solid;
+    border-color: #999;
+    border-top-width: 1px;
+    border-right-width: 3px;
+    border-bottom-width: 5px;
+    border-left-width: 7px;
+    font-size: 18px;
+}
+
+.transform-width .content {
+    width: 0.133333rem;
+    border-width: 1px;
+    font-size: 18px;
+}
