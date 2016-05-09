@@ -1,54 +1,37 @@
 {
-    "name": "px2rem",
-    "description": "According to one stylesheet, generate rem version and @1x, @2x and @3x stylesheet",
-    "version": "0.4.2",
-    "homepage": "https://github.com/songsiqi/px2rem",
-    "author": {
-        "name": "songsiqi",
-        "email": "songsiqi2006@126.com"
-    },
-    "contributors": [
-        {
-            "name": "hongru",
-            "email": "hongru.chenhr@gmail.com"
-        }
-    ],
-    "repository": {
-        "type": "git",
-        "url": "git@github.com:songsiqi/px2rem.git"
-    },
-    "engines": {
-        "node": ">= 0.10.0"
-    },
-    "dependencies": {
-        "css": "~2.2.0",
-        "extend": "~2.0.0",
-        "commander": "~2.6.0",
-        "chalk": "~0.5.1",
-        "fs-extra": "~0.16.3"
-    },
-    "devDependencies": {
-        "istanbul": "^0.3.6",
-        "coveralls": "^2.10.0",
-        "mocha": "^2.1.0",
-        "cssmin": "~0.4.3"
-    },
-    "directories": {
-        "test": "test"
-    },
-    "bin": {
-        "px2rem": "./bin/px2rem.js"
-    },
-    "scripts": {
-        "test": "mocha",
-        "test-travis": "node node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha -- --reporter dot"
-    },
-    "main": "index.js",
-    "keywords": [
-        "3x",
-        "rem",
-        "px2rem"
-    ],
-    "readmeFilename": "README.md",
-    "license": "MIT"
+  "name": "px2rem",
+  "description": "According to one stylesheet, generate rem version and @1x, @2x and @3x stylesheet",
+  "version": "0.4.2",
+  "homepage": "https://github.com/songsiqi/px2rem",
+  "author": "songsiqi <songsiqi2006@126.com>",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:songsiqi/px2rem.git"
+  },
+  "dependencies": {
+    "css": "~2.2.0",
+    "extend": "~3.0.0",
+    "commander": "~2.6.0",
+    "chalk": "~0.5.1",
+    "fs-extra": "~0.16.3"
+  },
+  "devDependencies": {
+    "istanbul": "^0.3.6",
+    "coveralls": "^2.10.0",
+    "mocha": "^2.1.0"
+  },
+  "bin": {
+    "px2rem": "./bin/px2rem.js"
+  },
+  "scripts": {
+    "test": "mocha",
+    "cover": "node node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha -- --reporter dot"
+  },
+  "main": "index.js",
+  "keywords": [
+    "3x",
+    "rem",
+    "px2rem"
+  ],
+  "license": "MIT"
 }
