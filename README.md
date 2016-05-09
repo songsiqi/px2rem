@@ -142,11 +142,11 @@ Rem version: `test.debug.css`
 
 comment hook + css parser
 
-TODO:
-
-* Support Animation keyframes.
-
 ## Change Log
+
+### 0.5.0
+
+* Support Animation keyframes (no `/*px*/` comment).
 
 ### 0.4.2
 
