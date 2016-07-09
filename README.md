@@ -75,10 +75,10 @@ One raw stylesheet: `test.css`
 
 ```
 .selector {
-    width: 150px;
-    height: 64px; /*px*/
-    font-size: 28px; /*px*/
-    border: 1px solid #ddd; /*no*/
+  width: 150px;
+  height: 64px; /*px*/
+  font-size: 28px; /*px*/
+  border: 1px solid #ddd; /*no*/
 }
 ```
 
@@ -88,20 +88,20 @@ Rem version: `test.debug.css`
 
 ```
 .selector {
-    width: 2rem;
-    border: 1px solid #ddd;
+  width: 2rem;
+  border: 1px solid #ddd;
 }
 [data-dpr="1"] .selector {
-    height: 32px;
-    font-size: 14px;
+  height: 32px;
+  font-size: 14px;
 }
 [data-dpr="2"] .selector {
-    height: 64px;
-    font-size: 28px;
+  height: 64px;
+  font-size: 28px;
 }
 [data-dpr="3"] .selector {
-    height: 96px;
-    font-size: 42px;
+  height: 96px;
+  font-size: 42px;
 }
 ```
 
@@ -109,10 +109,10 @@ Rem version: `test.debug.css`
 
 ```
 .selector {
-    width: 75px;
-    height: 32px;
-    font-size: 14px;
-    border: 1px solid #ddd;
+  width: 75px;
+  height: 32px;
+  font-size: 14px;
+  border: 1px solid #ddd;
 }
 ```
 
@@ -120,10 +120,10 @@ Rem version: `test.debug.css`
 
 ```
 .selector {
-    width: 150px;
-    height: 64px;
-    font-size: 28px;
-    border: 1px solid #ddd;
+  width: 150px;
+  height: 64px;
+  font-size: 28px;
+  border: 1px solid #ddd;
 }
 ```
 
@@ -131,10 +131,10 @@ Rem version: `test.debug.css`
 
 ```
 .selector {
-    width: 225px;
-    height: 96px;
-    font-size: 42px;
-    border: 1px solid #ddd;
+  width: 225px;
+  height: 96px;
+  font-size: 42px;
+  border: 1px solid #ddd;
 }
 ```
 

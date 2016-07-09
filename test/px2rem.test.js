@@ -1,3 +1,5 @@
+'use strict';
+
 var assert = require('assert');
 var Px2rem = require('../lib/px2rem');
 var path = require('path');
