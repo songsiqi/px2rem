@@ -16,6 +16,7 @@ body {
 }
 .main {
   height: 400px;
+  border: 1px solid; /*!no*/
 }
 .sidebar {
   margin: 0;
