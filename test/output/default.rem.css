@@ -48,6 +48,7 @@ body {
 
 .main {
   height: 5.333333rem;
+  border: 1px solid;
 }
 
 .sidebar {
