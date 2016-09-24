@@ -79,6 +79,7 @@ One raw stylesheet: `test.css`
   height: 64px; /*px*/
   font-size: 28px; /*px*/
   border: 1px solid #ddd; /*no*/
+  margin-left: 5px; /*!no*/
 }
 ```
 
@@ -90,6 +91,7 @@ Rem version: `test.debug.css`
 .selector {
   width: 2rem;
   border: 1px solid #ddd;
+  margin-left: 5px;
 }
 [data-dpr="1"] .selector {
   height: 32px;
@@ -113,6 +115,7 @@ Rem version: `test.debug.css`
   height: 32px;
   font-size: 14px;
   border: 1px solid #ddd;
+  margin-left: 5px;
 }
 ```
 
@@ -124,6 +127,7 @@ Rem version: `test.debug.css`
   height: 64px;
   font-size: 28px;
   border: 1px solid #ddd;
+  margin-left: 5px;
 }
 ```
 
@@ -135,6 +139,7 @@ Rem version: `test.debug.css`
   height: 96px;
   font-size: 42px;
   border: 1px solid #ddd;
+  margin-left: 5px;
 }
 ```
 
@@ -143,6 +148,10 @@ Rem version: `test.debug.css`
 comment hook + css parser
 
 ## Change Log
+
+### 0.5.1
+
+* Support less-loader on webpack (using `/*!no*/`)
 
 ### 0.5.0
 
