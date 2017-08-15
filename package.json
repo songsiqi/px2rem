@@ -1,8 +1,8 @@
 {
-  "name": "px2rem",
+  "name": "@hfe/px2rpx",
   "description": "According to one stylesheet, generate rem version and @1x, @2x and @3x stylesheet",
-  "version": "0.5.0",
-  "homepage": "https://github.com/songsiqi/px2rem",
+  "version": "0.5.2",
+  "homepage": "http://git.sankuai.com/projects/HFE/repos/px2rpx/browse",
   "author": "songsiqi <songsiqi2006@126.com>",
   "repository": {
     "type": "git",
@@ -21,7 +21,7 @@
     "mocha": "^2.1.0"
   },
   "bin": {
-    "px2rem": "./bin/px2rem.js"
+    "px2rpx": "./bin/px2rem.js"
   },
   "scripts": {
     "test": "mocha",
@@ -31,7 +31,7 @@
   "keywords": [
     "3x",
     "rem",
-    "px2rem"
+    "px2rpx"
   ],
   "license": "MIT"
 }
