@@ -3,3 +3,9 @@ html {
   font-size: 100px;
   line-height: 100px;
 }
+@media screen and (max-width: 374px) {
+  body {
+    font-size: 100px;
+    line-height: 100px;
+  }
+}

@@ -13,11 +13,14 @@ var path = require('path');
 var fs = require('fs');
 
 var px2remIns = new Px2rem({
-  remHackMeida: {
-    enabled: true,
-    propertys: ['font-size', 'line-height'],
+  remResetMeidas:[{
+    propertys: ['font-size'],
     media: 'screen and (max-width: 374px)'
-  }
+  }, {
+    propertys: ['line-height'],
+    media: 'screen and (max-width: 640px)'
+  }],
+  remResetPropertys: ['width'],
 });
 
 var srcPath = path.join(__dirname, 'assets/test.remHackMedia.css');
