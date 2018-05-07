@@ -1,0 +1,49 @@
+html {
+  width: 100px;
+  font-size: 1.333333rem;
+  line-height: 1.333333rem;
+  border: 1px solid black;
+  border-width: 1px;
+  border-top: 1px solid black;
+  border-right: 1px solid black;
+  border-bottom: 1px solid black;
+  border-left: 1px solid black;
+  border-top-width: 1px;
+  border-right-width: 1px;
+  border-bottom-width: 1px;
+  border-left-width: 1px;
+  border-radius: 0.133333rem;
+  border-top-radius: 0.133333rem;
+  border-top-left-radius: 0.133333rem;
+}
+
+@media screen and (max-width: 374px) {
+  html {
+    font-size: 1.333333rem;
+  }
+}
+
+@media screen and (max-width: 640px) {
+  html {
+    line-height: 1.333333rem;
+  }
+}
+
+@media screen and (max-width: 374px) {
+  body {
+    font-size: 1.333333rem;
+    line-height: 1.333333rem;
+  }
+
+@media screen and (max-width: 374px) {
+    body {
+      font-size: 1.333333rem;
+    }
+}
+
+@media screen and (max-width: 640px) {
+    body {
+      line-height: 1.333333rem;
+    }
+}
+}
