@@ -58,9 +58,9 @@ var config = {
 };
 
 if (deserializeValue(program.remResetCfg)) {
-  var remResetCfg = require(path.resolve(process.cwd(), program.remResetCfg))
-  config.remResetMeidas = remResetCfg.remResetMeidas
-  config.remResetPropertys = remResetCfg.remResetPropertys
+  var remResetCfg = require(path.resolve(process.cwd(), program.remResetCfg));
+  config.remResetMeidas = remResetCfg.remResetMeidas;
+  config.remResetPropertys = remResetCfg.remResetPropertys;
 }
 
 var px2remIns = new Px2rem(config);

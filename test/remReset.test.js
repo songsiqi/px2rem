@@ -5,7 +5,7 @@ var Px2rem = require('../lib/px2rem');
 var path = require('path');
 var fs = require('fs');
 
-var remResetCfg = require('./assets/test.remReset.cfg.js')
+var remResetCfg = require('./assets/test.remReset.cfg.js');
 
 describe('should work with test rem reset css origin file', function () {
   var px2remIns = new Px2rem({
