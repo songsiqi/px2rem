@@ -1,0 +1,26 @@
+html {
+  width: 100px;
+  font-size: 100px;
+  line-height: 100px;
+
+  border: 1px solid black;
+  border-width: 1px;
+  border-top: 1px solid black;;
+  border-right: 1px solid black;;
+  border-bottom: 1px solid black;;
+  border-left: 1px solid black;;
+  border-top-width: 1px;
+  border-right-width: 1px;
+  border-bottom-width: 1px;
+  border-left-width: 1px;
+  border-radius: 10px;
+  border-top-radius: 10px;
+  border-top-left-radius: 10px;
+}
+
+@media screen and (max-width: 374px) {
+  body {
+    font-size: 100px;
+    line-height: 100px;
+  }
+}

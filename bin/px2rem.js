@@ -38,6 +38,7 @@ program.version(pkg.version)
   .option('-r, --remVersion [value]', 'whether to generate rem version stylesheet (default: true)', true)
   .option('-b, --baseDpr [value]', 'set base device pixel ratio (default: 2)', 2)
   .option('-p, --remPrecision [value]', 'set rem value precision (default: 6)', 6)
+  .option('-m, --remResetCfg [path]', 'rem reset config', '')
   .option('-o, --output [path]', 'the output file dirname')
   .parse(process.argv);
 
@@ -51,8 +52,16 @@ var config = {
   threeVersion: deserializeValue(program.threeVersion),
   remVersion: deserializeValue(program.remVersion),
   baseDpr: deserializeValue(program.baseDpr),
-  remPrecision: deserializeValue(program.remPrecision)
+  remPrecision: deserializeValue(program.remPrecision),
+  remResetMeidas: [],
+  remResetPropertys: []
 };
+
+if (deserializeValue(program.remResetCfg)) {
+  var remResetCfg = require(path.resolve(process.cwd(), program.remResetCfg));
+  config.remResetMeidas = remResetCfg.remResetMeidas;
+  config.remResetPropertys = remResetCfg.remResetPropertys;
+}
 
 var px2remIns = new Px2rem(config);
 
