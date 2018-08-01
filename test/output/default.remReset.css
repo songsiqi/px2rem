@@ -19,13 +19,13 @@ html {
 
 @media screen and (max-width: 374px) {
   html {
-    font-size: 1.333333rem;
+    font-size: 100px;
   }
 }
 
 @media screen and (max-width: 640px) {
   html {
-    line-height: 1.333333rem;
+    line-height: 100px;
   }
 }
 
@@ -37,13 +37,13 @@ html {
 
 @media screen and (max-width: 374px) {
     body {
-      font-size: 1.333333rem;
+      font-size: 100px;
     }
 }
 
 @media screen and (max-width: 640px) {
     body {
-      line-height: 1.333333rem;
+      line-height: 100px;
     }
 }
 }
