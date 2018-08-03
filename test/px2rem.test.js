@@ -34,7 +34,6 @@ describe('should work with @2x origin css file', function () {
     assert.equal(outputText, fs.readFileSync(expectedPath, {encoding: 'utf8'}));
   });
 });
-
 describe('should work with @3x origin css file', function () {
   var px2remIns = new Px2rem({remUnit: 112.5, baseDpr: 3});
   var srcPath = path.join(__dirname, 'assets/test.3x.css');
@@ -64,3 +63,27 @@ describe('should work with @3x origin css file', function () {
     assert.equal(outputText, fs.readFileSync(expectedPath, {encoding: 'utf8'}));
   });
 });
+describe('should work with @keeyValue origin css file', function () {
+  var px2remIns = new Px2rem({keepValue: '1px'});
+  var srcPath = path.join(__dirname, 'assets/test.keep.value.css');
+  var srcText = fs.readFileSync(srcPath, {encoding: 'utf8'});
+
+  it('[keep value] should output right rem file', function () {
+    var expectedPath = path.join(__dirname, 'output/keep.value.css');
+    var outputText = px2remIns.generateRem(srcText);
+    assert.equal(outputText, fs.readFileSync(expectedPath, {encoding: 'utf8'}));
+  });
+  it('[keep property] should output right rem file', function () {
+    px2remIns = new Px2rem({keepProperty: "padding"});
+    var expectedPath = path.join(__dirname, 'output/keep.property.css');
+    var outputText = px2remIns.generateRem(srcText);
+    assert.equal(outputText, fs.readFileSync(expectedPath, {encoding: 'utf8'}));
+  });
+  it('[keep value and property] should output right rem file', function () {
+    px2remIns = new Px2rem({keepValue: '1px', keepProperty: "padding"});
+    var expectedPath = path.join(__dirname, 'output/keep.value.property.css');
+    var outputText = px2remIns.generateRem(srcText);
+    assert.equal(outputText, fs.readFileSync(expectedPath, {encoding: 'utf8'}));
+  });
+});
+
