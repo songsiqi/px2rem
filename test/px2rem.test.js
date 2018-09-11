@@ -64,3 +64,14 @@ describe('should work with @3x origin css file', function () {
     assert.equal(outputText, fs.readFileSync(expectedPath, {encoding: 'utf8'}));
   });
 });
+
+describe('supports', function () {
+  it('should replace px in supports', function () {
+    var px2remIns = new Px2rem();
+    var srcPath = path.join(__dirname, 'assets/supports.css');
+    var srcText = fs.readFileSync(srcPath, {encoding: 'utf8'});
+    var outputText = px2remIns.generateRem(srcText);
+    var expectedText = fs.readFileSync(path.join(__dirname, 'output/supports.css'), {encoding: 'utf8'});
+    assert.equal(outputText, expectedText);
+  });
+});
